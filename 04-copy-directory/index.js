@@ -12,13 +12,9 @@ async function copyDir () {
 
   for(let file of files){
     if (file.isFile()) {
-      console.log(file.name);
       await folder.copyFile(path.join(__dirname, 'files', file.name), path.join(__dirname, 'files-copy', file.name));
-
     }
-  };
-
-
+  }
 }
 
 copyDir ();

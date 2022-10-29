@@ -1,5 +1,6 @@
 const path = require('path');
 const folder = require('fs/promises');
+const fs = require('fs');
 
 async function bundler () {
   const files = await folder.readdir(path.join(__dirname, 'styles'), {withFileTypes: true});
@@ -15,7 +16,16 @@ async function bundler () {
 
     }
   };
-  await folder.writeFile(path.join(__dirname, 'project-dist', 'bundle.css'), arr.join("\n"));
+
+  await fs.access((path.join(__dirname, 'project-dist', 'bundle.css')), /*constants.F_OK,*/ (err) => {
+    if (err) {
+      folder.writeFile(path.join(__dirname, 'project-dist', 'bundle.css'), arr.join("\n"));
+    } else {
+      //console.error('myfile already exists');
+      return;
+    }
+  });
+
 }
 
 bundler();
