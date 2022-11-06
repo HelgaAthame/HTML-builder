@@ -3,7 +3,6 @@ const folder = require('fs/promises');
 
 async function filesInFolder() {
   const files = await folder.readdir(path.join(__dirname, 'secret-folder'), { withFileTypes: true });
-  console.log(files);
   for (let file of files) {
     if (file.isFile()) {
       const fileExt = await path.extname(path.join(__dirname, file.name)).slice(1);
